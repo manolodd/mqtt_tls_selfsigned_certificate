@@ -38,7 +38,11 @@ public class MQTTTLS {
             MqttAsyncClient client = new MqttAsyncClient(socketFactory.getMQTTBrokerSecureURL(), MqttAsyncClient.generateClientId(), null);
             IMqttToken connectToken = client.connect(options);
             connectToken.waitForCompletion();
-            System.out.println("Connected to remote broker");   
+            System.out.println("Connected to the remote broker");   
+            System.out.println("Disconnecting before shutting down...");   
+            IMqttToken disconnectToken = client.disconnect();
+            disconnectToken.waitForCompletion();
+            System.out.println("Disconnected from the remote broker");   
         } catch (MqttException ex) {
             Logger.getLogger(MQTTTLS.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CertificateException ex) {
